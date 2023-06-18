@@ -5,24 +5,37 @@ import START from "../images/start.png"
 import END from "../images/end.png"
 
 import { useDispatch } from 'react-redux'
-import { toggleWall, toggleEnd, toggleStart, toggleWeight } from '../utilities/nodeSlice'
+import { toggleWall, toggleEnd, toggleStart, toggleWeight, reset} from '../utilities/nodeSlice'
 
 const Sidebar = () => {
 
   const dispatch = useDispatch();
 
+  const toggleShadow = (e)=>{
+    const collection = document.getElementsByClassName("shadow");
+    for(let i = 0; i<collection.length; ++i) if(e.target != collection[i]) collection[i].classList.remove("shadow")
+    e.target.classList.toggle("shadow");
+  }
 
   const handleWall = (e)=>{
     dispatch(toggleWall());
+
+    toggleShadow(e)    
   }
   const handleWeight = (e)=>{
     dispatch(toggleWeight());
+    
+    toggleShadow(e)
   }
   const handleStart = (e)=>{
     dispatch(toggleStart());
+    
+    toggleShadow(e)
   }
   const handleEnd = (e)=>{
     dispatch(toggleEnd());
+    
+    toggleShadow(e)
   }
   return (
     <div className='sidebar'>

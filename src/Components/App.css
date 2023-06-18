@@ -7,7 +7,7 @@
 
 .header{
     background-color: #615f80;
-    min-height: 5rem;
+    min-height: 4.2rem;
     display: flex;
     align-items: center;
     box-shadow: 2px 2px 30px black;
@@ -23,6 +23,7 @@
     display: flex;
     /* border: 1px solid red; */
     flex: 1;
+    box-sizing: border-box;
 }
 
 .wall{
@@ -78,11 +79,15 @@ button img{
     display: flex;
     flex-wrap: wrap;
     flex: 1;
+    box-sizing: border-box;
 }
 
 .node{
     height: 30px;
     width: 30px;
-    box-sizing: border-box;
     border: 1px solid rgb(103, 191, 232);
+}
+
+.visited{
+    background-color: yellow;
 }
