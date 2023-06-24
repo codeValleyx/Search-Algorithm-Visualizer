@@ -8,7 +8,6 @@ const Header = () => {
   return (
     <div className='header'>
         <Title />
-        <p>{hasBegun}</p>
     </div>
   )
 }

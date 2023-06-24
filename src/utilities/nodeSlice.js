@@ -26,7 +26,8 @@ const nodeSlice = createSlice({
                 ...defaultState,
                 wall : !state.wall,
                 startNode: state.startNode,
-                endNode : state.endNode
+                endNode : state.endNode,
+                hasBegun : state.hasBegun
             }
 
         },
@@ -35,7 +36,8 @@ const nodeSlice = createSlice({
                 ...defaultState,
                 weight: !state.weight,
                 startNode: state.startNode,
-                endNode : state.endNode
+                endNode : state.endNode,
+                hasBegun : state.hasBegun
             }
         },
         toggleStart:(state)=>{
@@ -43,7 +45,8 @@ const nodeSlice = createSlice({
                 ...defaultState,
                 startInit: !state.startInit,
                 startNode: state.startNode,
-                endNode : state.endNode
+                endNode : state.endNode,
+                hasBegun : state.hasBegun
             }
         },
         toggleEnd:(state)=>{
@@ -51,19 +54,22 @@ const nodeSlice = createSlice({
                 ...defaultState,
                 endInit : !state.endInit,
                 startNode: state.startNode,
-                endNode : state.endNode
+                endNode : state.endNode,
+                hasBegun : state.hasBegun
             }
         },
         setStart:(state, action)=>{
              return state={
                 ...state,
-                startNode: action.payload
+                startNode: action.payload,
+                hasBegun : state.hasBegun
             }
         },
         setEnd:(state, action)=>{
             return {
                 ...state,
-                endNode : action.payload
+                endNode : action.payload,
+                hasBegun : state.hasBegun
             }
         },
         reset:()=>defaultState

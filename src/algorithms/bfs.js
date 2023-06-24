@@ -1,5 +1,6 @@
 
-const dir = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+// const dir = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+const dir = [ [0, 1], [1, 0], [0, -1], [-1, 0]];
 
 const getBfsNodesInOrder = (grid, start, end)=>{
 
@@ -13,6 +14,7 @@ const bfs = (grid, start, end)=>{
     const queue = [];
 
     queue.push([start, {}]);
+    grid[start.row][start.col].isVisited  = 1;
 
     while(queue.length > 0){
         const cur = queue.shift();
@@ -37,6 +39,7 @@ const bfs = (grid, start, end)=>{
                 queue.push(newNode);
                 
                 grid[newNode[0].row][newNode[0].col].isVisited  = 1;
+                grid[newNode[0].row][newNode[0].col].prev  = grid[cur[0].row][cur[0].col];
             }
         })
 
