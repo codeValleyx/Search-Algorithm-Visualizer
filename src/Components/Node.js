@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useState, useLayoutEffect} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
 
 import { setStart, setEnd } from '../utilities/nodeSlice'
@@ -35,11 +35,11 @@ const Node = (props) => {
         if(hasBegun === 0){
             setClassName("node")
         }
-
+        else
         if(hasBegun === 1){
             
         }
-
+        else
         if(hasBegun === 2){
             setClassName(prev => {
                 prev = prev.replace("visited","")
@@ -50,7 +50,9 @@ const Node = (props) => {
         }
     }, [hasBegun])
 
-    const handleClick = useCallback((e)=>{
+    const handleClick = 
+    // useCallback(
+        (e)=>{
         // if(hasBegun === 1) return;
         const curNode = {
             row: props.row,
@@ -127,20 +129,23 @@ const Node = (props) => {
                 }
             }
         }
-    }, [wall, weight, start, end, startNode, endNode, className])
+    }
+    // , [wall, weight, start, end, startNode, endNode, className])
 
-    const node = useMemo(()=>{
-        // console.log("node1234");
-        return <div name="node" id={props.val} className= {className} onClick={handleClick}></div>
-    }, [className, handleClick, props.val])
+    // const node = useMemo(()=>{
+    //     // console.log("node1234");
+    //     return <div name="node" id={props.val} className= {className} onClick={handleClick}></div>
+    // }, [className, handleClick, props.val])
     
     // return <div name="node" id={props.val} className= {className} onClick={handleClick}></div>;
-    return node
+    return (
+        <div style = {props.style} name="node" id={props.val} className= {className} onClick={handleClick} onMouseOver={(e)=>{if(e.buttons==1) handleClick(e)}}></div>
+    );
   
 }
 
-export default React.memo(Node);
-// export default Node;
+// export default React.memo(Node);
+export default Node;
 
 
 // ~no need of memo here as its not expensive   (as per current understanding)

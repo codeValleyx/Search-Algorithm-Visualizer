@@ -6,7 +6,7 @@ const defaultState ={
     weight: 0,
     startInit: 0,
     endInit: 0,
-    hasBegun:0,
+    hasBegun:-1,
     startNode: {},
     endNode: {}
 }
@@ -72,7 +72,14 @@ const nodeSlice = createSlice({
                 hasBegun : state.hasBegun
             }
         },
-        reset:()=>defaultState
+        reset: (state)=>{
+            return {
+                ...state,
+                hasBegun: 0,
+                startNode: {},
+                endNode: {}
+            }
+        }
     }
 });
 

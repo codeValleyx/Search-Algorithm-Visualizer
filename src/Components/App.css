@@ -9,7 +9,8 @@
 :root{
     --light-blue: #b3c8ff70;
     --visited: cyan;
-    --wall: rgb(35, 36, 39);
+    /* --wall: rgb(35, 36, 39); */
+    --wall: rgb(12, 53, 71);
     --inPath: gold;
 }
 
@@ -38,15 +39,34 @@ background: linear-gradient(90deg, rgba(175,181,255,1) 0%, rgba(112,134,224,1) 5
 .body{
     display: flex;
     /* border: 1px solid red; */
-    flex: 1;
-    box-sizing: border-box;
+    /* flex: 1; */
+    height: 100%;
+    /* box-sizing: border-box; */
 }
 
 .wall{
     background-color: var(--wall);
     border-color: rgb(35, 36, 39);
     /* #e8d6c7 */
+    animation: wallAnimation 0.3s ease-out alternate forwards;
 }
+
+@keyframes wallAnimation {
+    0% {
+      transform: scale(.3);
+      /* background-color: rgb(12, 53, 71); */
+    }
+  
+    50% {
+      transform: scale(1.2);
+      /* background-color: rgb(12, 53, 71); */
+    }
+  
+    100% {
+      transform: scale(1.0);
+      /* background-color: rgb(12, 53, 71); */
+    }
+  }
 
 .weight{
     /* background-color: brown; */
@@ -170,6 +190,10 @@ button img{
     animation-direction: alternate;
 }
 
+/* .begin:hover span{
+    animation: neon2 4s linear infinite;
+} */
+
 @keyframes gradient {
     0% {background-position: 0%}
     100% {background-position: 100%}
@@ -190,21 +214,22 @@ button img{
     display: flex;
     flex-wrap: wrap;
     flex: 1;
-    box-sizing: border-box;
     background-color: var(--light-blue);
-    gap: 0%;
+    gap: 0;
 }
 
 .node{
-    height: 30px;
-    width: 30px;
+    min-height: 30px;
+    min-width: 30px;
     /* border: 1px solid rgb(103, 191, 232); */
     border: 1px solid rgb(131 156 255 / 76%);
+    background-repeat: no-repeat;
+    border-left-style: none;
+    border-top-style: none;
 }
 
 .visited{
     background-color: var(--visited);
-    /* background-color: yellow; */
 }
 
 .inPath{

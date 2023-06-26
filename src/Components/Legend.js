@@ -1,6 +1,7 @@
 import React from 'react'
 import { setHasBegun, reset } from '../utilities/nodeSlice';
 import { useDispatch} from 'react-redux';
+import Select from './Select';
 
 const Legend = () => {
 
@@ -10,7 +11,7 @@ const Legend = () => {
     <div className='legend'>
       <div className='controls'>
         <button className='begin' type='button' onClick={()=>{dispatch(setHasBegun(1))}}>
-          Begin!
+          <span>Begin!</span>
         </button>
 
         <button type='button' onClick={()=>{dispatch(setHasBegun(2))}}>
@@ -21,6 +22,8 @@ const Legend = () => {
           Reset Board
         </button>
       </div>
+
+      <Select />
 
       <div className='node-legend'>
         <span>

@@ -1,0 +1,42 @@
+select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    outline:0;
+    box-shadow:none;
+    border:0!important;
+    background: #90a6ef;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color:#fff;
+    cursor:pointer;
+    font-size: 1rem;
+ }
+ select::-ms-expand {
+    display: none;
+ }
+ .select {
+    display: flex;
+    /* min-width: 10rem; */
+    height: 2rem;
+    line-height: 3;
+    overflow: hidden;
+    border-radius: .25em;
+    /* text-align: center; */
+ }
+ .more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    padding: 0 0.6rem;
+    background: #90a6ef;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.25s all ease;
+ }
+ .select:hover .more {
+    color: #6975d4;
+ }

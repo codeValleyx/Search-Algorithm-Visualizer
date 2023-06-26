@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import BFS from "../algorithms/bfs";
 import getNewGrid from '../utilities/getGrid';
 import clearPathInGrid from '../utilities/clearPathInGrid';
+import algorithms from "../algorithms/algorithms"
 
 const Main = () => {
 
@@ -29,7 +30,7 @@ const Main = () => {
       return;
     }
 
-    if(hasBegun == 0){
+    if(hasBegun <= 0){
 
         //reset grid
         height = observedDiv.current.offsetHeight;
@@ -55,31 +56,12 @@ const Main = () => {
 
       if(JSON.stringify(start) === JSON.stringify({}) || JSON.stringify(end) === JSON.stringify({})) return;
 
-      const visitedInOrder = BFS(g2.current, start, end);
-      const pathInOrder= [];
-    
-      let cur = visitedInOrder[visitedInOrder.length - 1][0]
-      cur = grid[cur.row][cur.col];
+      // BFS(g2.current, start, end);
 
-      while(cur != null){
-        pathInOrder.unshift([cur.row, cur.col])
-
-        cur = cur.prev;
-      }
+      const selectedAlgoritm = document.getElementById("select").value;
       
-      visitedInOrder.forEach( (ele, index) => {
-        setTimeout(()=>{
-          document.getElementById(ele[0].row*grid[0].length + ele[0].col).classList.add("visited");
-        }, index * 10);
-      });
-
-      const len = visitedInOrder.length;
-
-      pathInOrder.forEach((ele, index)=>{
-        setTimeout(()=>{
-          document.getElementById(ele[0]*grid[0].length + ele[1]).classList.add("inPath");
-        }, (len+index) * 10);
-      });
+      algorithms[selectedAlgoritm](g2.current, start, end);
+      
     }
 
 
@@ -107,28 +89,49 @@ const Main = () => {
     g2.current[r][c] = {...g2.current[r][c], ...data}
   }, [])
 
-  const layout = useMemo(()=>{
-    console.log("layout");
-    return grid.map((row, index)=>{
-      return (row.map((cell, col)=>{
-        return <Node row= {index} col={col} val={index*row.length + col} setCell={setCell} key={index*row.length + col}/>
-      }))
-    })}
-    , [grid, setCell])
+  // const layout = useMemo(()=>{
+  //   console.log("layout");
+  //   return grid.map((row, index)=>{
+  //     return (row.map((cell, col)=>{
+  //       return <Node row= {index} col={col} val={index*row.length + col} setCell={setCell} key={index*row.length + col}/>
+  //     }))
+  //   })}
+  //   , [grid, setCell])
 
 
   return (
     <div id="main" className='main' ref={observedDiv}>
       {
-        // grid.map((row, index)=>{
-        //   return (row.map((cell, col)=>{
-        //     return <Node row= {index} col={col} val={index*row.length + col} setCell={setCell} key={index*row.length + col}/>
-        //   }))
-        // })
-        layout
+        grid.map((row, index)=>{
+          return (row.map((cell, col)=>{
+            return <Node style={getNodeStyle(index, col)} row= {index} col={col} val={index*row.length + col} setCell={setCell} key={index*row.length + col}/>
+          }))
+        })
+        // layout
       }
     </div>
   )
+}
+
+const getNodeStyle = (row, col) => {
+  if(row === 0 && col === 0){
+    return {
+      borderLeftStyle: "solid",
+      borderTopStyle: "solid"
+    };
+  }
+  else if( row === 0){
+    return {
+      borderTopStyle: "solid"
+    }
+  }
+  else if(col === 0){
+    return {
+      borderLeftStyle: "solid"
+    }
+  }
+
+  return {};
 }
 
 export default Main

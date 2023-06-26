@@ -2,13 +2,38 @@
 // const dir = [[-1, 0], [0, 1], [1, 0], [0, -1]];
 const dir = [ [0, 1], [1, 0], [0, -1], [-1, 0]];
 
-const getBfsNodesInOrder = (grid, start, end)=>{
+const bfs = (grid, start, end)=>{
 
-    return bfs(grid, start, end);
+    const visitedInOrder =  getBfsNodesInOrder(grid, start, end);
+
+    const pathInOrder= [];
+    
+      let cur = visitedInOrder[visitedInOrder.length - 1][0]
+      cur = grid[cur.row][cur.col];
+
+      while(cur != null){
+        pathInOrder.unshift([cur.row, cur.col])
+
+        cur = cur.prev;
+      }
+      
+      visitedInOrder.forEach( (ele, index) => {
+        setTimeout(()=>{
+          document.getElementById(ele[0].row*grid[0].length + ele[0].col).classList.add("visited");
+        }, index * 10);
+      });
+
+      const len = visitedInOrder.length;
+
+      pathInOrder.forEach((ele, index)=>{
+        setTimeout(()=>{
+          document.getElementById(ele[0]*grid[0].length + ele[1]).classList.add("inPath");
+        }, (len+index) * 10);
+      });
 
 }
 
-const bfs = (grid, start, end)=>{
+const getBfsNodesInOrder = (grid, start, end)=>{
     const nodesInOrder = [];
 
     const queue = [];
@@ -47,4 +72,4 @@ const bfs = (grid, start, end)=>{
     return nodesInOrder;
 }
 
-export default getBfsNodesInOrder;
+export default bfs;
