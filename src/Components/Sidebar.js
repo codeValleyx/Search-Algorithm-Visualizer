@@ -1,11 +1,11 @@
-import React, { useTransition } from 'react'
+import React from 'react'
 import WALL from "../images/wall.png"
 import WEIGHT from "../images/weight.png"
 import START from "../images/start.png"
 import END from "../images/end.svg"
 
 import { useDispatch } from 'react-redux'
-import { toggleWall, toggleEnd, toggleStart, toggleWeight, reset} from '../utilities/nodeSlice'
+import { toggleWall, toggleEnd, toggleStart, toggleWeight} from '../utilities/nodeSlice'
 
 const toggleShadow = (e)=>{
   const collection = document.getElementsByClassName("shadow");
@@ -25,41 +25,34 @@ const toggleShadow = (e)=>{
 const Sidebar = () => {
 
   const dispatch = useDispatch();
-
-  const [isPending, startTransition] = useTransition();
   
 
   const handleWall = (e)=>{
-    toggleShadow(e)    
+    toggleShadow(e)
 
-    startTransition(()=>
-      dispatch(toggleWall())
-    )
-
+    
+    dispatch(toggleWall())
+  
   }
   const handleWeight = (e)=>{
     toggleShadow(e)
 
-    startTransition(()=>
-      dispatch(toggleWeight())
-    )
+    dispatch(toggleWeight())
     
   }
   const handleStart = (e)=>{
     toggleShadow(e)
 
-    startTransition(()=>
-      dispatch(toggleStart())
-    )
     
+    dispatch(toggleStart())
+      
   }
   const handleEnd = (e)=>{
     toggleShadow(e)
 
-    startTransition(()=>
-      dispatch(toggleEnd())
-    )
     
+    dispatch(toggleEnd())
+      
   }
   return (
     <div className='sidebar'>

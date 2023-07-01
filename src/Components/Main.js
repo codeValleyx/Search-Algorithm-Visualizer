@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import getNewGrid from '../utilities/getGrid';
 import clearPathInGrid from '../utilities/clearPathInGrid';
 import algorithms from "../algorithms/algorithms"
-import { setHasBegun } from '../utilities/nodeSlice';
+import { setHasBegun, setStart, setEnd } from '../utilities/nodeSlice';
 
 const Main = () => {
 
@@ -13,19 +13,106 @@ const Main = () => {
   const dispatch = useDispatch();
 
   const [grid, setGrid] = useState([])
-  const hasBegun = useSelector(store => store.nodeSlice.hasBegun);
 
-  const start = useSelector(store => store.nodeSlice.startNode);
-  const end = useSelector(store => store.nodeSlice.endNode);
+  const wall = useSelector(store => store.nodeSlice.wall)
+    const weight = useSelector(store => store.nodeSlice.weight)
+    const start = useSelector(store => store.nodeSlice.startInit)
+    const end = useSelector(store => store.nodeSlice.endInit)
+    const startNode = useSelector(store => store.nodeSlice.startNode)
+    const endNode = useSelector(store => store.nodeSlice.endNode)
+    const hasBegun = useSelector(store => store.nodeSlice.hasBegun)
 
-  let g2= useRef([])
+    let g2= useRef([])
 
-  let height=0;
-  let width = 0;
-
-  const s= 30;
+    let height=0;
+    let width = 0;
   
-  const observedDiv = useRef(null);
+    const s= 30;
+    
+    const observedDiv = useRef(null);
+
+    const hasOther = (classes, me)=>{
+        
+        const all = ["wall", "weight", "start", "end"]
+
+        for(let i = 0;i<all.length; ++i){
+            if(all[i] === me) continue;
+
+            if(classes.includes(all[i])) return true;
+        }
+
+    }
+
+    const handleClick = 
+        (e, row, col)=>{
+        if(hasBegun === 1) return;
+        const curNode = {
+            row: row,
+            col: col
+        }
+        const classes = e.target.classList.value;
+
+
+        if(wall && (!hasOther(classes, "wall"))){
+            if(classes.includes("wall")){
+                e.target.classList.remove("wall");
+
+                setCell(curNode.row, curNode.col, {isWall: 0})
+            }
+            else{
+                e.target.classList.add("wall");
+                setCell(curNode.row, curNode.col, {isWall: 1})
+            }
+        }
+
+        else
+
+        if(weight && (!hasOther(classes, "weight"))){
+            if(classes.includes("weight")){
+                e.target.classList.remove("weight");
+                setCell(curNode.row, curNode.col, {weight: 0});
+            }
+            else{
+                e.target.classList.add("weight");
+
+                setCell(curNode.row, curNode.col, {weight: 10});
+            }
+        }
+
+        else
+
+        if(start && (!hasOther(classes, "start"))){
+            if(JSON.stringify(startNode) === JSON.stringify({})){
+                e.target.classList.add("start");
+
+                dispatch(setStart(curNode));
+            }
+            else{
+                if(JSON.stringify(startNode) === JSON.stringify(curNode)){
+                    e.target.classList.remove("start");
+
+                    dispatch(setStart({}));
+                }
+            }
+        }
+
+        else
+        
+        if(end && (!hasOther(classes, "end"))){
+            if(JSON.stringify(endNode) === JSON.stringify({})){
+                e.target.classList.add("end");
+
+                dispatch(setEnd(curNode));
+            }
+            else{
+                if(JSON.stringify(curNode) === JSON.stringify(endNode)){
+                    e.target.classList.remove("end");
+
+                    dispatch(setEnd({}));
+                }
+            }
+        }
+    }
 
   useEffect(()=>{
     if (!observedDiv.current) {
@@ -56,7 +143,7 @@ const Main = () => {
 
     if(hasBegun === 1){
 
-      if(JSON.stringify(start) === JSON.stringify({}) || JSON.stringify(end) === JSON.stringify({})){
+      if(JSON.stringify(startNode) === JSON.stringify({}) || JSON.stringify(endNode) === JSON.stringify({})){
         dispatch(setHasBegun(-1));
         
         return;
@@ -66,7 +153,7 @@ const Main = () => {
 
       const selectedAlgoritm = document.getElementById("select").value;
       
-      algorithms[selectedAlgoritm](g2.current, start, end);
+      algorithms[selectedAlgoritm](g2.current, startNode, endNode);
       
     }
 
@@ -110,34 +197,13 @@ const Main = () => {
       {
         grid.map((row, index)=>{
           return (row.map((cell, col)=>{
-            return <Node style={getNodeStyle(index, col)} row= {index} col={col} val={index*row.length + col} setCell={setCell} key={index*row.length + col}/>
+            return <Node row= {index} col={col} val={index*row.length + col} setCell={setCell} handleClick={(e)=>handleClick(e, index, col)} key={index*row.length + col}/>
           }))
         })
         // layout
       }
     </div>
   )
-}
-
-const getNodeStyle = (row, col) => {
-  if(row === 0 && col === 0){
-    return {
-      borderLeftStyle: "solid",
-      borderTopStyle: "solid"
-    };
-  }
-  else if( row === 0){
-    return {
-      borderTopStyle: "solid"
-    }
-  }
-  else if(col === 0){
-    return {
-      borderLeftStyle: "solid"
-    }
-  }
-
-  return {};
 }
 
 export default Main
