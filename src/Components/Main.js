@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useRef, useMemo, useCallback} from 'react'
+import React, { useEffect, useState, useRef, useCallback} from 'react'
 import Node from './Node'
-import { useSelector } from 'react-redux';
-import BFS from "../algorithms/bfs";
+import { useSelector, useDispatch } from 'react-redux';
 import getNewGrid from '../utilities/getGrid';
 import clearPathInGrid from '../utilities/clearPathInGrid';
 import algorithms from "../algorithms/algorithms"
+import { setHasBegun } from '../utilities/nodeSlice';
 
 const Main = () => {
 
   console.log("main");
+
+  const dispatch = useDispatch();
 
   const [grid, setGrid] = useState([])
   const hasBegun = useSelector(store => store.nodeSlice.hasBegun);
@@ -52,9 +54,13 @@ const Main = () => {
 
 
 
-    if(hasBegun == 1){
+    if(hasBegun === 1){
 
-      if(JSON.stringify(start) === JSON.stringify({}) || JSON.stringify(end) === JSON.stringify({})) return;
+      if(JSON.stringify(start) === JSON.stringify({}) || JSON.stringify(end) === JSON.stringify({})){
+        dispatch(setHasBegun(-1));
+        
+        return;
+      }
 
       // BFS(g2.current, start, end);
 
@@ -65,7 +71,7 @@ const Main = () => {
     }
 
 
-    if(hasBegun == 2){
+    if(hasBegun === 2){
 
       //reset grid
 

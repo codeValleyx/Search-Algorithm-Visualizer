@@ -1,10 +1,10 @@
 
 const getNewGrid = (height, width, s)=>{
     const grid = [];
-      for(let i =0;i<height/s-1;++i){
+      for(let i =0;i<height/s ;++i){
 
         const row = []
-        for(let j=0;j<width/s -1;++j){
+        for(let j=0;j<width/s -1 ;++j){
           row.push({
             row: i,
             col: j,

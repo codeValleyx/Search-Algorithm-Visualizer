@@ -139,7 +139,7 @@ const Node = (props) => {
     
     // return <div name="node" id={props.val} className= {className} onClick={handleClick}></div>;
     return (
-        <div style = {props.style} name="node" id={props.val} className= {className} onClick={handleClick} onMouseOver={(e)=>{if(e.buttons==1) handleClick(e)}}></div>
+        <div style = {props.style} name="node" id={props.val} className= {className} onClick={handleClick} onMouseOver={(e)=>{if(e.buttons==1) handleClick(e)}}  onTouchMove={handleClick} onTouchCancel={(e)=>{e.preventDefault()}}></div> // onTouchStart={handleClick}
     );
   
 }

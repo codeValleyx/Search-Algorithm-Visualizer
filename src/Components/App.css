@@ -18,7 +18,7 @@
     /* background-color: #615f80; */
     /* background-color: #4942b6; */
     background: rgb(175,181,255);
-background: linear-gradient(90deg, rgba(175,181,255,1) 0%, rgba(112,134,224,1) 5%, rgba(80,73,191,1) 18%, rgba(73,66,182,1) 100%);
+    background: linear-gradient(90deg, rgba(175,181,255,1) 0%, rgba(112,134,224,1) 5%, rgba(80,73,191,1) 18%, rgba(73,66,182,1) 100%);
     min-height: 4.2rem;
     display: flex;
     align-items: center;
@@ -112,18 +112,22 @@ background: linear-gradient(90deg, rgba(175,181,255,1) 0%, rgba(112,134,224,1) 5
     padding: 8px;
 }
 
-.sidebar button:hover{
-    background-color: #96abf9;
-    border-color: #6e8be9;
-    transition: 0.7s;
+@media screen and (min-width: 601px) {
+    .sidebar button:hover{
+        background-color: #96abf9;
+        border-color: #6e8be9;
+        transition: 0.7s;
+    }
+    
+    .shadow{
+        box-shadow: 3px 3px 5px black;
+        background-color: #96abf9;
+        border-color: #6e8be9;
+        border-radius: 8px;
+    }
 }
 
-.shadow{
-    box-shadow: 3px 3px 5px black;
-    background-color: #96abf9;
-    border-color: #6e8be9;
-    border-radius: 8px;
-}
+
 
 .sidebar button p{
     margin-left: 1rem;
@@ -221,6 +225,8 @@ button img{
 .node{
     min-height: 30px;
     min-width: 30px;
+    /* max-width: 32px;
+    max-height: 32px; */
     /* border: 1px solid rgb(103, 191, 232); */
     border: 1px solid rgb(131 156 255 / 76%);
     background-repeat: no-repeat;
@@ -234,4 +240,64 @@ button img{
 
 .inPath{
     background-color: var(--inPath);
+}
+
+.shadow{
+    background-color: #96abf9;
+    border-color: #6e8be9;
+    transition: 0.7s;
+}
+
+
+@media screen and (max-width: 600px) {
+    .node-legend{
+        display: none;
+    }
+
+    .body{
+        flex-direction: column;
+    }
+
+    .sidebar{
+        flex-direction: row;
+        min-height: 50px;
+        flex-wrap: wrap;
+    }
+
+    .legend{
+        flex-direction: column;
+        min-height: 130px;
+        width: 100%;
+        flex-wrap: wrap;
+        /* justify-content: space-around; */
+    }
+
+    .controls{
+        width: 100%;
+        padding: 5px 0;
+    }
+
+    .header h1{
+        font-size: 28px;
+    }
+
+    .controls button:nth-child(1){
+        order: 1;
+        font-size: 20px;
+    }
+    .controls button:nth-child(2){
+        order: 0;
+    }
+    .controls button:nth-child(3){
+        order: 2;
+    }
+
+    .controls button{
+        padding: 3px;
+    }
+
+    body{
+        overscroll-behavior: contain;
+    }
+
 }
