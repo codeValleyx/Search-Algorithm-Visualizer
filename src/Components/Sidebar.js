@@ -13,13 +13,7 @@ const toggleShadow = (e)=>{
     if(e.target != collection[i])
       collection[i].classList.remove("shadow")
 
-  const par = e.target.parentNode;
-  if(par.type==="button"){
-    par.classList.toggle("shadow")
-  }
-  else{
-    e.target.classList.toggle("shadow")
-  }
+    e.target.classList.toggle("shadow");
 }
 
 const Sidebar = () => {

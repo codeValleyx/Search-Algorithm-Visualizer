@@ -14,7 +14,7 @@ const Main = () => {
 
   const [grid, setGrid] = useState([])
 
-  const wall = useSelector(store => store.nodeSlice.wall)
+    const wall = useSelector(store => store.nodeSlice.wall)
     const weight = useSelector(store => store.nodeSlice.weight)
     const start = useSelector(store => store.nodeSlice.startInit)
     const end = useSelector(store => store.nodeSlice.endInit)
@@ -45,7 +45,7 @@ const Main = () => {
 
     const handleClick = 
         (e, row, col)=>{
-        if(hasBegun === 1) return;
+        if(hasBegun === 1 || hasBegun === 3) return;
         const curNode = {
             row: row,
             col: col
@@ -70,10 +70,17 @@ const Main = () => {
         if(weight && (!hasOther(classes, "weight"))){
             if(classes.includes("weight")){
                 e.target.classList.remove("weight");
-                setCell(curNode.row, curNode.col, {weight: 0});
+                setCell(curNode.row, curNode.col, {weight: 1});
             }
             else{
                 e.target.classList.add("weight");
+
+                if(document.getElementById("select").value !== "dijkstra"){
+                  e.target.style.zIndex= "-1";
+                }
+                else{
+                  e.target.style.zIndex = "0";
+                }
 
                 setCell(curNode.row, curNode.col, {weight: 10});
             }
@@ -134,7 +141,8 @@ const Main = () => {
         let collections = document.querySelectorAll(".visited, .wall, .start, .end, .weight, .path, .inPath");
 
         for(let i=0;i<collections.length;++i){
-          collections[i].classList.remove("visited", "wall", "start", "end", "weight", "path", "inPath")
+          collections[i].classList.remove("visited", "wall", "start", "end", "weight", "path", "inPath");
+          collections[i].innerHTML = "";
         }
     }
 
@@ -153,7 +161,10 @@ const Main = () => {
 
       const selectedAlgoritm = document.getElementById("select").value;
       
-      algorithms[selectedAlgoritm](g2.current, startNode, endNode);
+      const endOfVisualization = algorithms[selectedAlgoritm](g2.current, {...startNode}, {...endNode});
+
+      setTimeout(()=>{dispatch(setHasBegun(3))}
+      , endOfVisualization*10);
       
     }
 
@@ -168,7 +179,8 @@ const Main = () => {
         let collections = document.querySelectorAll(".visited, .inPath");
 
         for(let i=0;i<collections.length;++i){
-          collections[i].classList.remove("visited", "inPath")
+          collections[i].classList.remove("visited", "inPath");
+          collections[i].innerHTML = "";
         }
 
     }
@@ -197,7 +209,7 @@ const Main = () => {
       {
         grid.map((row, index)=>{
           return (row.map((cell, col)=>{
-            return <Node row= {index} col={col} val={index*row.length + col} setCell={setCell} handleClick={(e)=>handleClick(e, index, col)} key={index*row.length + col}/>
+            return <Node row= {index} col={col} val={index*row.length + col} handleClick={(e)=>handleClick(e, index, col)} key={index*row.length + col}/>
           }))
         })
         // layout

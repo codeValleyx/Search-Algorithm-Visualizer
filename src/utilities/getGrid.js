@@ -10,7 +10,7 @@ const getNewGrid = (height, width, s)=>{
             col: j,
             isVisited: 0,
             isWall: 0,
-            weight:0,
+            weight:1,
             prev: null
           })
         }

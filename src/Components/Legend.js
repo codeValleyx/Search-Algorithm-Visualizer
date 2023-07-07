@@ -1,11 +1,13 @@
 import React from 'react'
 import { setHasBegun, reset } from '../utilities/nodeSlice';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import Select from './Select';
 
 const Legend = () => {
 
   const dispatch = useDispatch();
+
+  const hasBegun = useSelector(store => store.nodeSlice.hasBegun);
   
   return (
     <div className='legend'>
@@ -14,11 +16,11 @@ const Legend = () => {
           <span>Begin!</span>
         </button>
 
-        <button type='button' onClick={()=>{dispatch(setHasBegun(2))}}>
+        <button type='button' onClick={()=>{if(hasBegun !== 1) dispatch(setHasBegun(2))}}>
           Clear Path
         </button>
 
-        <button type='button' onClick={()=>{dispatch(reset())}}>
+        <button type='button' onClick={()=>{if(hasBegun !== 1) dispatch(reset())}}>
           Reset Board
         </button>
       </div>

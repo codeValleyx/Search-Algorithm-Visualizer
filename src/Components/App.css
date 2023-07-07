@@ -110,33 +110,27 @@
     justify-content: center;
     width: 7rem;
     padding: 8px;
+
+    transition: box-shadow 0.3s;
 }
-
-@media screen and (min-width: 601px) {
-    .sidebar button:hover{
-        background-color: #96abf9;
-        border-color: #6e8be9;
-        transition: 0.7s;
-    }
-    
-    .shadow{
-        box-shadow: 3px 3px 5px black;
-        background-color: #96abf9;
-        border-color: #6e8be9;
-        border-radius: 8px;
-    }
-}
-
-
 
 .sidebar button p{
     margin-left: 1rem;
     font-size: 16px;
     font-weight: 600;
+    pointer-events: none;
 }
 
-button img{
+.sidebar button img{
     width: 30px;
+    pointer-events: none;
+}
+
+.shadow{
+    box-shadow: 0px 0px 5px #96abf9;
+    background-color: #96abf9;
+    border-color: #6e8be9;
+    border-radius: 8px;
 }
 
 .legend{
@@ -232,6 +226,13 @@ button img{
     background-repeat: no-repeat;
     border-left-style: none;
     border-top-style: none;
+    color: #6e8be9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    user-select: none; 
 }
 
 .visited{
@@ -240,12 +241,6 @@ button img{
 
 .inPath{
     background-color: var(--inPath);
-}
-
-.shadow{
-    background-color: #96abf9;
-    border-color: #6e8be9;
-    transition: 0.7s;
 }
 
 
