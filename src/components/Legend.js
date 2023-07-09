@@ -12,7 +12,17 @@ const Legend = () => {
   return (
     <div className='legend'>
       <div className='controls'>
-        <button className='begin' id='begin' type='button' onClick={(e)=>{e.target.classList.remove('button-jittery'); dispatch(setHasBegun(1))}}>
+        <button className='begin' id='begin' type='button' onClick={
+            (e)=>{
+
+              e.target.classList.remove('button-jittery');
+
+              if(hasBegun === 3)
+                document.getElementById("clear").classList.add("button-jittery");
+              else
+                dispatch(setHasBegun(1));
+            }
+          }>
           <span>Begin!</span>
         </button>
 

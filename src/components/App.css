@@ -72,7 +72,8 @@
     /* background-color: brown; */
     background-image: url("../images/weight.png");
     background-size: contain;
-
+    background-position: center;
+    background-size: 80%;
 }
 
 .start{
@@ -230,6 +231,22 @@
 
 .inPath{
     background-color: var(--inPath);
+}
+
+.weight.visited{
+    animation: visitWeight 0.5s ease-in-out forwards;
+}
+
+@keyframes visitWeight{
+    50%{
+        /* transform: scale(1.2); */
+        background-size: 60%;
+    }
+
+    100%{
+        /* transform: scale(1); */
+        background-size: 80%;
+    }
 }
 
 

@@ -23,9 +23,9 @@ const getNodeStyle = (row, col) => {
 
 const Node = ({val, handleClick, row, col}) => {
 
-    console.log("node");
+    // console.log("node");
     return (
-        <div style = {getNodeStyle(row, col)} className='node' id={val} onClick={handleClick} onMouseOver={(e)=>{if(e.buttons==1) handleClick(e)}}  onTouchMove={handleClick} onTouchCancel={(e)=>{e.preventDefault()}}></div> // onTouchStart={handleClick}
+        <div style = {getNodeStyle(row, col)} className='node' id={val} onClick={handleClick} onMouseOver={(e)=>{if(e.buttons === 1 ) handleClick(e)}}  onTouchMove={handleClick} onTouchCancel={(e)=>{e.preventDefault()}}></div> // onTouchStart={handleClick}
     );
   
 }

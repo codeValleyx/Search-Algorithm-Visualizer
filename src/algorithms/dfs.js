@@ -21,7 +21,7 @@ const dfs = (grid, start, end)=>{
       visitedInOrder.forEach( (ele, index) => {
         setTimeout(()=>{
           document.getElementById(ele.row*grid[0].length + ele.col).classList.add("visited");
-        }, index * 10);
+        }, index * 20);
       });
 
       const len = visitedInOrder.length;
@@ -29,7 +29,7 @@ const dfs = (grid, start, end)=>{
       pathInOrder.forEach((ele, index)=>{
         setTimeout(()=>{
           document.getElementById(ele.row*grid[0].length + ele.col).classList.add("inPath");
-        }, (len+index) * 10);
+        }, (len+index) * 20);
       });
 
       return (len + pathInOrder.length);

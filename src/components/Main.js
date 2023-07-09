@@ -8,7 +8,7 @@ import { setHasBegun, setStart, setEnd } from '../utilities/nodeSlice';
 
 const Main = () => {
 
-  console.log("main");
+  // console.log("main");
 
   const dispatch = useDispatch();
 
@@ -173,6 +173,15 @@ const Main = () => {
       // BFS(g2.current, start, end);
 
       const selectedAlgoritm = document.getElementById("select").value;
+
+      if(selectedAlgoritm !== "dijkstra"){
+        let collections = document.querySelectorAll(".weight");
+
+        for(let i=0;i<collections.length;++i){
+          collections[i].classList.remove("weight");
+          collections[i].style.zIndex= 0 ;
+        }
+      }
       
       const endOfVisualization = algorithms[selectedAlgoritm](g2.current, {...startNode}, {...endNode});
 

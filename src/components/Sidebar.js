@@ -10,7 +10,7 @@ import { toggleWall, toggleEnd, toggleStart, toggleWeight} from '../utilities/no
 const toggleShadow = (e)=>{
   const collection = document.getElementsByClassName("shadow");
   for(let i = 0; i<collection.length; ++i)
-    if(e.target != collection[i])
+    if(e.target !== collection[i])
       collection[i].classList.remove("shadow")
 
     e.target.classList.toggle("shadow");
