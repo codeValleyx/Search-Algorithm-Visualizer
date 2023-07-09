@@ -45,80 +45,86 @@ const Main = () => {
 
     const handleClick = 
         (e, row, col)=>{
-        if(hasBegun === 1 || hasBegun === 3) return;
-        const curNode = {
-            row: row,
-            col: col
-        }
-        const classes = e.target.classList.value;
+          if(!wall && !weight && !start && !end) return;
+          if(hasBegun === 1) return;
+          if(hasBegun === 3){
+            document.getElementById("clear").classList.add("button-jittery");
+            return;
+          }
+
+          const curNode = {
+              row: row,
+              col: col
+          }
+          const classes = e.target.classList.value;
 
 
-        if(wall && (!hasOther(classes, "wall"))){
-            if(classes.includes("wall")){
-                e.target.classList.remove("wall");
+          if(wall && (!hasOther(classes, "wall"))){
+              if(classes.includes("wall")){
+                  e.target.classList.remove("wall");
 
-                setCell(curNode.row, curNode.col, {isWall: 0})
-            }
-            else{
-                e.target.classList.add("wall");
-                setCell(curNode.row, curNode.col, {isWall: 1})
-            }
-        }
+                  setCell(curNode.row, curNode.col, {isWall: 0})
+              }
+              else{
+                  e.target.classList.add("wall");
+                  setCell(curNode.row, curNode.col, {isWall: 1})
+              }
+          }
 
-        else
+          else
 
-        if(weight && (!hasOther(classes, "weight"))){
-            if(classes.includes("weight")){
-                e.target.classList.remove("weight");
-                setCell(curNode.row, curNode.col, {weight: 1});
-            }
-            else{
-                e.target.classList.add("weight");
+          if(weight && (!hasOther(classes, "weight"))){
+              if(classes.includes("weight")){
+                  e.target.classList.remove("weight");
+                  setCell(curNode.row, curNode.col, {weight: 1});
+              }
+              else{
+                  e.target.classList.add("weight");
 
-                if(document.getElementById("select").value !== "dijkstra"){
-                  e.target.style.zIndex= "-1";
-                }
-                else{
-                  e.target.style.zIndex = "0";
-                }
+                  if(document.getElementById("select").value !== "dijkstra"){
+                    e.target.style.zIndex= "-1";
+                  }
+                  else{
+                    e.target.style.zIndex = "0";
+                  }
 
-                setCell(curNode.row, curNode.col, {weight: 10});
-            }
-        }
+                  setCell(curNode.row, curNode.col, {weight: 10});
+              }
+          }
 
-        else
+          else
 
-        if(start && (!hasOther(classes, "start"))){
-            if(JSON.stringify(startNode) === JSON.stringify({})){
-                e.target.classList.add("start");
+          if(start && (!hasOther(classes, "start"))){
+              if(JSON.stringify(startNode) === JSON.stringify({})){
+                  e.target.classList.add("start");
 
-                dispatch(setStart(curNode));
-            }
-            else{
-                if(JSON.stringify(startNode) === JSON.stringify(curNode)){
-                    e.target.classList.remove("start");
+                  dispatch(setStart(curNode));
+              }
+              else{
+                  if(JSON.stringify(startNode) === JSON.stringify(curNode)){
+                      e.target.classList.remove("start");
 
-                    dispatch(setStart({}));
-                }
-            }
-        }
+                      dispatch(setStart({}));
+                  }
+              }
+          }
 
-        else
-        
-        if(end && (!hasOther(classes, "end"))){
-            if(JSON.stringify(endNode) === JSON.stringify({})){
-                e.target.classList.add("end");
+          else
+          
+          if(end && (!hasOther(classes, "end"))){
+              if(JSON.stringify(endNode) === JSON.stringify({})){
+                  e.target.classList.add("end");
 
-                dispatch(setEnd(curNode));
-            }
-            else{
-                if(JSON.stringify(curNode) === JSON.stringify(endNode)){
-                    e.target.classList.remove("end");
+                  dispatch(setEnd(curNode));
+              }
+              else{
+                  if(JSON.stringify(curNode) === JSON.stringify(endNode)){
+                      e.target.classList.remove("end");
 
-                    dispatch(setEnd({}));
-                }
-            }
-        }
+                      dispatch(setEnd({}));
+                  }
+              }
+          }
     }
 
   useEffect(()=>{
@@ -134,7 +140,7 @@ const Main = () => {
 
         g2.current = getNewGrid(height, width, s)
     
-        setGrid(g2.current);
+        if(hasBegun === -1) setGrid(g2.current);
 
 
         //reset UI
@@ -152,7 +158,14 @@ const Main = () => {
     if(hasBegun === 1){
 
       if(JSON.stringify(startNode) === JSON.stringify({}) || JSON.stringify(endNode) === JSON.stringify({})){
-        dispatch(setHasBegun(-1));
+        if(JSON.stringify(startNode) === JSON.stringify({})){
+          document.getElementById("start").classList.add('button-jittery');
+        }
+        else if(JSON.stringify(endNode) === JSON.stringify({})){
+          document.getElementById("end").classList.add('button-jittery');
+        }
+
+        dispatch(setHasBegun(4));
         
         return;
       }

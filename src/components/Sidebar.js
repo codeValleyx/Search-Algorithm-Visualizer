@@ -16,12 +16,17 @@ const toggleShadow = (e)=>{
     e.target.classList.toggle("shadow");
 }
 
+const handleAnimation = e => {
+  e.target.classList.remove("button-jittery");
+}
+
 const Sidebar = () => {
 
   const dispatch = useDispatch();
   
 
   const handleWall = (e)=>{
+    handleAnimation(e);
     toggleShadow(e)
 
     
@@ -29,12 +34,14 @@ const Sidebar = () => {
   
   }
   const handleWeight = (e)=>{
+    handleAnimation(e);
     toggleShadow(e)
 
     dispatch(toggleWeight())
     
   }
   const handleStart = (e)=>{
+    handleAnimation(e);
     toggleShadow(e)
 
     
@@ -42,6 +49,7 @@ const Sidebar = () => {
       
   }
   const handleEnd = (e)=>{
+    handleAnimation(e);
     toggleShadow(e)
 
     
@@ -50,19 +58,19 @@ const Sidebar = () => {
   }
   return (
     <div className='sidebar'>
-        <button type='button' onClick={handleStart}>
+        <button type='button' id='start' onClick={handleStart}>
          <img alt="start" src={START} />
          <p>Start</p>
         </button>
-        <button type='button' onClick={handleEnd}>
+        <button type='button' id='end' onClick={handleEnd}>
          <img alt="end" src={END} />
          <p>End</p>
         </button>
-        <button type='button' onClick={handleWall}>
+        <button type='button' id='wall' onClick={handleWall}>
          <img alt="wall" src={WALL} />
          <p>Wall</p>
         </button>
-        <button type='button' onClick={handleWeight}>
+        <button type='button' id='weight' onClick={handleWeight}>
          <img alt="weight" src={WEIGHT} />
          <p>Weight</p>
         </button>

@@ -12,15 +12,15 @@ const Legend = () => {
   return (
     <div className='legend'>
       <div className='controls'>
-        <button className='begin' type='button' onClick={()=>{dispatch(setHasBegun(1))}}>
+        <button className='begin' id='begin' type='button' onClick={(e)=>{e.target.classList.remove('button-jittery'); dispatch(setHasBegun(1))}}>
           <span>Begin!</span>
         </button>
 
-        <button type='button' onClick={()=>{if(hasBegun !== 1) dispatch(setHasBegun(2))}}>
+        <button type='button' id='clear' onClick={(e)=>{e.target.classList.remove('button-jittery'); if(hasBegun !== 1) dispatch(setHasBegun(2))}}>
           Clear Path
         </button>
 
-        <button type='button' onClick={()=>{if(hasBegun !== 1) dispatch(reset())}}>
+        <button type='button' id='reset' onClick={(e)=>{e.target.classList.remove('button-jittery'); if(hasBegun !== 1) dispatch(reset())}}>
           Reset Board
         </button>
       </div>
