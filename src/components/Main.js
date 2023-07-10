@@ -3,6 +3,7 @@ import Node from './Node'
 import { useSelector, useDispatch } from 'react-redux';
 import getNewGrid from '../utilities/getGrid';
 import clearPathInGrid from '../utilities/clearPathInGrid';
+import removeWeights from '../utilities/removeWeights';
 import algorithms from "../algorithms/algorithms"
 import { setHasBegun, setStart, setEnd } from '../utilities/nodeSlice';
 
@@ -150,6 +151,8 @@ const Main = () => {
           collections[i].classList.remove("visited", "wall", "start", "end", "weight", "path", "inPath");
           collections[i].innerHTML = "";
         }
+
+        dispatch(setHasBegun(4));
     }
 
 
@@ -175,6 +178,9 @@ const Main = () => {
       const selectedAlgoritm = document.getElementById("select").value;
 
       if(selectedAlgoritm !== "dijkstra"){
+
+        removeWeights(g2);
+
         let collections = document.querySelectorAll(".weight");
 
         for(let i=0;i<collections.length;++i){
