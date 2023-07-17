@@ -1,6 +1,8 @@
 # Searching-Algorithm-Visualizer
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This web app is live at: https://master--keen-lily-867cb4.netlify.app/
+
 
 This app lets you use various algorithms to find a path between source and destination nodes and visualizes the algorithm in the UI.
 
